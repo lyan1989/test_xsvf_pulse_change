@@ -1,27 +1,10 @@
-#include <Arduino.h>
-
-/*
-  The JTAG Whisperer: An Arduino library for JTAG.
-
-  By Mike Tsao <http://github.com/sowbug>.
-
-  Copyright © 2012 Mike Tsao. Use, modification, and distribution are
-  subject to the BSD-style license as described in the accompanying
-  LICENSE file.
-
-  See README for complete attributions.
-
-
-  Serial.println(pgm_read_word_far(pgm_get_far_address(data2)+k),HEX);
-      Serial.println(pgm_read_word_far(pgm_get_far_address(data3)+k),HEX);*/
-
 
 
 #include <Arduino.h>
 #include "xsvf_code.h"
 #include "parse.h"
 #include "JTAGPortArduino.h"
-
+#include <avr/wdt.h>
 
 const int BLINK_PIN = 6;  //teensy++2.0 use the LED in PIN6
 static bool is_pin_on;
@@ -50,13 +33,14 @@ void setup() {
   delayMicroseconds(100);
   Serial.flush();
   parseInit();
+  // wdt_enable(WDTO_8S);
 }
 
-bool program()
+void program()
 {
   // Wait for user input before proceeding
-  // while (!Serial.available());
-  // // a key was pressed1
+  while (digitalRead(31));
+  // a key was pressed1
   // while (Serial.available()) Serial.read();
   // fist data block
   result1 = parse((data1), 16525);
@@ -66,18 +50,18 @@ bool program()
   // 3rd data block
   result3 = parse((data3), 10836);
 
-
-  if(result1|result2|result3)
+  // wdt_reset();
+  if(((result1|result2)|result3))
   {
     digitalWrite(6,HIGH);
-    // Serial.println("program failed!");
-    return false;
+    Serial.println("program failed!");
+    // return false;
   }
   else
   {
     digitalWrite(6,LOW);
-    // Serial.println("program successfully!");
-    return true;
+    Serial.println("program successfully!");
+    // return true;
   }
 }
 
@@ -96,18 +80,11 @@ bool test_id()
 
 void loop(){
 
-    if( digitalRead(24) )
-    {
-      if(!m_program)
-      {
-        parseInit();
-        program();
 
-      }
-      m_program = true;
-    }
-    else
-      m_program = false;
+        parseInit();
+        delay(1);
+        program();
+    Serial.println(digitalRead(31));
 
     delayMicroseconds(100);
 

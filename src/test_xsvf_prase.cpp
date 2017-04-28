@@ -79,7 +79,7 @@ bool sdr(bool should_begin, bool should_end, bool should_check) {
 		state_goto(STATE_SHIFT_DR);
 	}
   // Serial.print("--the current statatus is:");
-  Serial.print(jtagtap.currentState());
+  // Serial.print(jtagtap.currentState());
   // delayMicroseconds(3000);
   // delay(100);
   	while (!matched && attempts_left-- >= 0) {
@@ -200,7 +200,7 @@ ParseStatus gotXREPEAT(uint8_t numRepeats) {
 	//print out the instruction
 	// Serial.print("XREPEAT ");
 	// DEBUG_PRINT(numRepeats);
-  Serial.println();
+  // Serial.println();
 	return PARSE_SUCCESS;
 }
 
@@ -257,7 +257,7 @@ ParseStatus gotXSDRB(uint16_t tdoNumBits, const uint8_t *tdoBitmap) {
 	// for ( uint8_t i = 0; i < bitsToBytes(tdoNumBits); i++ ) {
 	// 	DEBUG_PRINT(*tdoBitmap++);
 	// }
-  Serial.println();
+  // Serial.println();
 	return PARSE_SUCCESS;
 }
 ParseStatus gotXSDRC(uint16_t tdoNumBits, const uint8_t *tdoBitmap) {
@@ -265,7 +265,7 @@ ParseStatus gotXSDRC(uint16_t tdoNumBits, const uint8_t *tdoBitmap) {
 	// for ( uint8_t i = 0; i < bitsToBytes(tdoNumBits); i++ ) {
 	// 	DEBUG_PRINT(*tdoBitmap++);
 	// }
-  Serial.println();
+  // Serial.println();
 	return PARSE_SUCCESS;
 }
 ParseStatus gotXSDRE(uint16_t tdoNumBits, const uint8_t *tdoBitmap) {
@@ -273,7 +273,7 @@ ParseStatus gotXSDRE(uint16_t tdoNumBits, const uint8_t *tdoBitmap) {
 	// for ( uint8_t i = 0; i < bitsToBytes(tdoNumBits); i++ ) {
 	// 	DEBUG_PRINT(*tdoBitmap++);
 	// }
-  Serial.println();
+  // Serial.println();
 	return PARSE_SUCCESS;
 }
 
