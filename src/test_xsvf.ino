@@ -43,12 +43,12 @@ void program()
   // a key was pressed1
   // while (Serial.available()) Serial.read();
   // fist data block
-  result1 = parse((data1), 16525);
+  result1 = parse((data1), 16514);
   //second data block
-  result2 = parse((data2), 16279);
+  result2 = parse((data2), 16253);
 
   // 3rd data block
-  result3 = parse((data3), 10836);
+  result3 = parse((data3), 10839);
 
   // wdt_reset();
   if(((result1|result2)|result3))
